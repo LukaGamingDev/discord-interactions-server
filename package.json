@@ -1,0 +1,25 @@
+{
+  "name": "discord-interactions-server",
+  "version": "0.0.1",
+  "description": "Discord interactions middleware",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LukaGamingDev/discord-interactions-server.git"
+  },
+  "author": "Luka (https://github.com/LukaGamingDev)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LukaGamingDev/discord-interactions-server/issues"
+  },
+  "homepage": "https://github.com/LukaGamingDev/discord-interactions-server#readme",
+  "keywords": [
+    "interactions",
+    "discord"
+  ],
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "tweetnacl": "^1.0.3"
+  }
+}
