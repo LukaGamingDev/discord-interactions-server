@@ -1,6 +1,6 @@
 {
   "name": "discord-interactions-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Discord interactions middleware",
   "main": "src/discordInteractions.js",
   "types": "types.d.ts",
