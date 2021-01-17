@@ -4,6 +4,7 @@ const { readdirSync } = require('fs')
 const axios = require('axios')
 
 const CommandsManager = require('./CommmandsManager')
+const Interaction = require('./CommandInteraction')
 
 /**
  * ClientOptions
@@ -23,6 +24,7 @@ const CommandsManager = require('./CommmandsManager')
 
 /**
  * Handles Discord Interactions
+ * @alias DiscordInteractionsServer
  * @param {ClientOptions} options
  * @returns {DiscordInteractionsServer} - Express Middleware
  */
@@ -41,7 +43,7 @@ const proto = function discordInteractionsServer(options) {
 
     interactions.publicKey = options.publicKey
     interactions.applicationId = options.applicationId
-    //interactions.commands = new CommandsManager()
+    interactions.commands = new CommandsManager(interactions)
     interactions.api = axios.create({
         baseURL: 'https://discord.com/api/v8',
         headers: {
@@ -52,13 +54,13 @@ const proto = function discordInteractionsServer(options) {
     return interactions
 }
 
-proto.handle = function handle(req, res) {
+proto.handle = async function handle(req, res) {
     const signature = req.get('X-Signature-Ed25519')
     const timestamp = req.get('X-Signature-Timestamp')
     const body = JSON.stringify(req.body)
 
     if (this.checkIsVerified(signature, timestamp, body)) {
-        this.handleInteraction(req, res)
+        await this.handleInteraction(req, res)
     } else {
         res.status(401).json({
             message: "Unauthorized"
@@ -73,12 +75,10 @@ proto.checkIsVerified = function checkIsVerified(signature, timestamp, body) {
         Buffer.from(this.publicKey, 'hex')
     )
 
-    console.log(isVerified)
-
     return isVerified
 }
 
-proto.handleInteraction = function handleInteraction(req, res) {
+proto.handleInteraction = async function handleInteraction(req, res) {
     switch (req.body.type) {
         case 1:
             res.json({
@@ -86,14 +86,46 @@ proto.handleInteraction = function handleInteraction(req, res) {
             })
             break
         case 2:
-            res.json({
-                type: 4,
-                data: {
-                    content: 'Thanks for firing **A** command,' +
-                             'The only thing I know is that the command is named ' +
-                             req.body.data.name
-                }
-            })
+            const command = this.getCommandFromId(req.body)
+
+            if (!command) return console.warn(
+                `[INTERACTIONS]: Received unkown command '${req.body.data.name}' (${req.body.data.id})`
+            )
+
+            try {    
+                const interaction = new Interaction(this, req.body, res)
+                const options = (req.body.data.options || []).reduce(
+                    (prev, v) => {
+                        prev[v.name] = v.value
+                        return prev
+                    }, {}
+                )
+
+                await command.execute(interaction, options)
+            } catch(e) {
+                console.error('[INTERACTIONS]: An error has occured while running command')
+                console.error('[INTERACTIONS]:', e)
+                res.json({
+                    type: 4,
+                    data: {
+                        embeds: [
+                            {
+                                title: 'Error',
+                                description: 'An error has occurred while running command ' +
+                                    `\`${command.name}\``,
+                                fields: [
+                                    {
+                                        name: 'Message',
+                                        value: `\`\`\`\n${e.message}\n\`\`\``
+                                    }
+                                ],
+                                color: 0xff0000
+                            }
+                        ]
+                    }
+                })
+            }
+
             break
         default:
             console.error(`[INTERACTIONS]: Received unkown request type ${req.body.type}`)
@@ -101,4 +133,19 @@ proto.handleInteraction = function handleInteraction(req, res) {
     }
 }
 
-exports = module.exports = proto
+proto.getCommandFromId = function(body) {
+    const globalCommand = this.commands.global.cache.get(body.data.id)
+    if (globalCommand) return globalCommand
+    const guild = this.commands.guild(body.guild_id)
+    if (guild) {
+        const guildCommand = guild.cache.get(body.data.id)
+        return guildCommand
+    }
+}
+
+module.exports = {
+    Server: proto,
+    SlashCommand: require('./SlashCommand'),
+    CommandsStore: require('./CommandsStore'),
+    CommandsManager: require('./CommmandsManager')
+}

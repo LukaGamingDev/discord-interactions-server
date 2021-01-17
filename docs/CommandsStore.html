@@ -185,7 +185,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line4">line 4</a>
+        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line8">line 8</a>
     </li></ul></dd>
     
 
@@ -231,6 +231,298 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="cache"><span class="type-signature"></span>cache<span class="type-signature"> :Collection.&lt;string, <a href="SlashCommand.html">SlashCommand</a>></span></h4>
+
+
+
+
+<div class="description">
+    The commands cache
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Collection.&lt;string, <a href="SlashCommand.html">SlashCommand</a>></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="guild"><span class="type-signature">(nullable) </span>guild<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    The id of the guild that this store belongs to, if there is any
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line24">line 24</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="queue"><span class="type-signature"></span>queue<span class="type-signature"> :Array.&lt;<a href="SlashCommand.html">SlashCommand</a>></span></h4>
+
+
+
+
+<div class="description">
+    The commands queue, use <a href="CommandsStore.html#addCommand"><code>CommandsStore#addCommand</code></a> to add a command to this queue
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;<a href="SlashCommand.html">SlashCommand</a>></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line30">line 30</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="server"><span class="type-signature"></span>server<span class="type-signature"> :<a href="global.html#DiscordInteractionsServer">DiscordInteractionsServer</a></span></h4>
+
+
+
+
+<div class="description">
+    The server this store belongs to
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="global.html#DiscordInteractionsServer">DiscordInteractionsServer</a></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -241,7 +533,7 @@
     
 
     
-    <h4 class="name" id="create"><span class="type-signature"></span>create<span class="signature">(command)</span><span class="type-signature"> &rarr; {Promise.&lt;<a href="SlashCommand.html">SlashCommand</a>>}</span></h4>
+    <h4 class="name" id="addCommand"><span class="type-signature"></span>addCommand<span class="signature">(command)</span><span class="type-signature"></span></h4>
     
 
     
@@ -249,7 +541,9 @@
 
 
 <div class="description">
-    Creates a new command
+    Adds a command.
+The command will be put into <a href="CommandsStore.html#queue"><code>the queue</code></a>
+Use <a href="CommandsStore.html#update"><code>CommandsStore#update</code></a> to update the remote commands
 </div>
 
 
@@ -291,6 +585,9 @@
             <td class="type">
             
                 
+<span class="param-type">function</span>
+|
+
 <span class="param-type"><a href="SlashCommand.html">SlashCommand</a></span>
 
 
@@ -301,7 +598,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">SlashCommand Constructor or instance to add</td>
         </tr>
 
     
@@ -342,7 +639,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line20">line 20</a>
+        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="fetch"><span class="type-signature"></span>fetch<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Array.&lt;<a href="SlashCommand.html">SlashCommand</a>>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Fetch the commands, and caches them
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line100">line 100</a>
     </li></ul></dd>
     
 
@@ -378,7 +763,114 @@
     </dt>
     <dd>
         
-<span class="param-type">Promise.&lt;<a href="SlashCommand.html">SlashCommand</a>></span>
+<span class="param-type">Promise.&lt;Array.&lt;<a href="SlashCommand.html">SlashCommand</a>>></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Update the remote commands.
+Will update remote commands, will also clear <a href="CommandsStore.html#queue"><code>the queue</code></a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CommandsStore.js.html">CommandsStore.js</a>, <a href="CommandsStore.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
 
 
     </dd>
@@ -406,13 +898,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CommandsManager.html">CommandsManager</a></li><li><a href="CommandsStore.html">CommandsStore</a></li><li><a href="SlashCommand.html">SlashCommand</a></li></ul><h3>Global</h3><ul><li><a href="global.html#discordInteractionsServer">discordInteractionsServer</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CommandsManager.html">CommandsManager</a></li><li><a href="CommandsStore.html">CommandsStore</a></li><li><a href="Interaction.html">Interaction</a></li><li><a href="SlashCommand.html">SlashCommand</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Jan 14 2021 20:49:55 GMT+0100 (Midden-Europese standaardtijd)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a>
 </footer>
 
 <script> prettyPrint(); </script>

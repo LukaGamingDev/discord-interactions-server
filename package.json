@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "Discord interactions middleware",
   "main": "src/discordInteractions.js",
+  "types": "types.d.ts",
+  "scripts": {
+    "tsc": "tsc",
+    "jsdoc": "jsdoc src -d docs -c ./jsdoc.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LukaGamingDev/discord-interactions-server.git"
@@ -18,8 +23,13 @@
     "discord"
   ],
   "dependencies": {
+    "@discordjs/collection": "^0.1.6",
     "axios": "^0.21.1",
+    "deep-object-diff": "^1.1.0",
     "express": "^4.17.1",
     "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
   }
 }

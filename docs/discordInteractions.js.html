@@ -32,6 +32,7 @@ const { readdirSync } = require('fs')
 const axios = require('axios')
 
 const CommandsManager = require('./CommmandsManager')
+const Interaction = require('./CommandInteraction')
 
 /**
  * ClientOptions
@@ -51,25 +52,26 @@ const CommandsManager = require('./CommmandsManager')
 
 /**
  * Handles Discord Interactions
+ * @alias DiscordInteractionsServer
  * @param {ClientOptions} options
  * @returns {DiscordInteractionsServer} - Express Middleware
  */
-function discordInteractionsServer(options) {
-    async function interactions(req, res) {
-        if (checkIsVerified(req)) {
-            handleInteraction(req, res)
-        } else {
-            res.status(401).json({
-                message: "Unauthorized"
-            })
-        }
+const proto = function discordInteractionsServer(options) {
+    async function interactions(req, res, next) {
+        express.json()(req, res, error => {
+            if (error) {
+                next(error)
+            } else {
+                interactions.handle(req, res)
+            }
+        })
     }
 
-    Object.setPrototypeOf(interactions, this)
+    Object.setPrototypeOf(interactions, proto)
 
     interactions.publicKey = options.publicKey
     interactions.applicationId = options.applicationId
-    interactions.commands = new CommandsManager()
+    interactions.commands = new CommandsManager(interactions)
     interactions.api = axios.create({
         baseURL: 'https://discord.com/api/v8',
         headers: {
@@ -80,21 +82,31 @@ function discordInteractionsServer(options) {
     return interactions
 }
 
-function checkIsVerified(req) {
+proto.handle = async function handle(req, res) {
     const signature = req.get('X-Signature-Ed25519')
     const timestamp = req.get('X-Signature-Timestamp')
     const body = JSON.stringify(req.body)
 
+    if (this.checkIsVerified(signature, timestamp, body)) {
+        await this.handleInteraction(req, res)
+    } else {
+        res.status(401).json({
+            message: "Unauthorized"
+        })
+    }
+}
+
+proto.checkIsVerified = function checkIsVerified(signature, timestamp, body) {
     const isVerified = nacl.sign.detached.verify(
         Buffer.from(timestamp + body),
         Buffer.from(signature, 'hex'),
-        Buffer.from(res.locals.publicKey, 'hex')
+        Buffer.from(this.publicKey, 'hex')
     )
 
-    return isVerified()
+    return isVerified
 }
 
-function handleInteraction(req, res) {
+proto.handleInteraction = async function handleInteraction(req, res) {
     switch (req.body.type) {
         case 1:
             res.json({
@@ -102,14 +114,46 @@ function handleInteraction(req, res) {
             })
             break
         case 2:
-            res.json({
-                type: 4,
-                data: {
-                    content: 'Thanks for firing **A** command,' +
-                             'The only thing I know is that the command is named ' +
-                             req.body.data.name
-                }
-            })
+            const command = this.getCommandFromId(req.body)
+
+            if (!command) return console.warn(
+                `[INTERACTIONS]: Received unkown command '${req.body.data.name}' (${req.body.data.id})`
+            )
+
+            try {    
+                const interaction = new Interaction(this, req.body, res)
+                const options = (req.body.data.options || []).reduce(
+                    (prev, v) => {
+                        prev[v.name] = v.value
+                        return prev
+                    }, {}
+                )
+
+                await command.execute(interaction, options)
+            } catch(e) {
+                console.error('[INTERACTIONS]: An error has occured while running command')
+                console.error('[INTERACTIONS]:', e)
+                res.json({
+                    type: 4,
+                    data: {
+                        embeds: [
+                            {
+                                title: 'Error',
+                                description: 'An error has occurred while running command ' +
+                                    `\`${command.name}\``,
+                                fields: [
+                                    {
+                                        name: 'Message',
+                                        value: `\`\`\`\n${e.message}\n\`\`\``
+                                    }
+                                ],
+                                color: 0xff0000
+                            }
+                        ]
+                    }
+                })
+            }
+
             break
         default:
             console.error(`[INTERACTIONS]: Received unkown request type ${req.body.type}`)
@@ -117,7 +161,22 @@ function handleInteraction(req, res) {
     }
 }
 
-exports = module.exports = discordInteractionsServer</code></pre>
+proto.getCommandFromId = function(body) {
+    const globalCommand = this.commands.global.cache.get(body.data.id)
+    if (globalCommand) return globalCommand
+    const guild = this.commands.guild(body.guild_id)
+    if (guild) {
+        const guildCommand = guild.cache.get(body.data.id)
+        return guildCommand
+    }
+}
+
+module.exports = {
+    Server: proto,
+    SlashCommand: require('./SlashCommand'),
+    CommandsStore: require('./CommandsStore'),
+    CommandsManager: require('./CommmandsManager')
+}</code></pre>
         </article>
     </section>
 
@@ -127,13 +186,13 @@ exports = module.exports = discordInteractionsServer</code></pre>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CommandsManager.html">CommandsManager</a></li><li><a href="CommandsStore.html">CommandsStore</a></li><li><a href="SlashCommand.html">SlashCommand</a></li></ul><h3>Global</h3><ul><li><a href="global.html#discordInteractionsServer">discordInteractionsServer</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CommandsManager.html">CommandsManager</a></li><li><a href="CommandsStore.html">CommandsStore</a></li><li><a href="Interaction.html">Interaction</a></li><li><a href="SlashCommand.html">SlashCommand</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Thu Jan 14 2021 20:49:55 GMT+0100 (Midden-Europese standaardtijd)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a>
 </footer>
 
 <script> prettyPrint(); </script>

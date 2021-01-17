@@ -1,3 +1,4 @@
+const { default: Collection } = require("@discordjs/collection")
 const CommandsStore = require("./CommandsStore")
 
 /**
@@ -22,9 +23,9 @@ class CommandsManager {
 
         /**
          * Cached guilds
-         * @type {Map<string,CommandsStore>}
+         * @type {Collection<string,CommandsStore>}
          */
-        this.guilds = new Map()
+        this.guilds = new Collection()
     }
 
     /**
