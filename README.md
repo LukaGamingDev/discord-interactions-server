@@ -52,7 +52,7 @@ class HelloWorldCommand extends SlashCommand {
                 {
                     type: 3,
                     name: 'message',
-                    description: 'The message to send'
+                    description: 'The message to send',
                     required: true
                 }
             ]
