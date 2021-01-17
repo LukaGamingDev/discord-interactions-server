@@ -105,7 +105,7 @@ class SlashCommand {
      */
     update() {
         const diffs = diff(this._remote, this.toInfo())
-        diffs.options = Object.values(diffs.options)
+        diffs.options = Object.values(diffs.options || [])
         if (Object.entries(diffs).length === 0) return Promise.resolve(false)
         return this.manager.apiPatch(this.id, diffs)
             .then(() => true)
