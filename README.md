@@ -15,7 +15,7 @@ This library handles the creation of commands, as well as updating and deleting.
 
 ## Installation
 
-This is a [NodeJS](https://nodejs.org/) module available through the [npm registry](https://npmjs.com).
+This is a [NodeJS](https://nodejs.org/) module available through the [npm registry](https://npmjs.com).  
 Installation is done using the [`npm install` command:](https://docs.npmjs.com/downloading-and-installing-packages-locally)
 
 ```
