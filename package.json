@@ -2,8 +2,8 @@
   "name": "discord-interactions-server",
   "version": "1.0.3",
   "description": "Discord interactions middleware",
-  "main": "src/discordInteractions.js",
-  "types": "types.d.ts",
+  "main": "./src/index.js",
+  "types": "./types/",
   "scripts": {
     "tsc": "tsc",
     "jsdoc": "jsdoc src -d docs -c ./jsdoc.json"

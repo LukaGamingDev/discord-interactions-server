@@ -24,7 +24,7 @@ const Interaction = require('./CommandInteraction')
 
 /**
  * Handles Discord Interactions
- * @alias DiscordInteractionsServer
+ * @alias discordInteractionsServer
  * @param {ClientOptions} options
  * @returns {DiscordInteractionsServer} - Express Middleware
  */
@@ -143,9 +143,4 @@ proto.getCommandFromId = function(body) {
     }
 }
 
-module.exports = {
-    Server: proto,
-    SlashCommand: require('./SlashCommand'),
-    CommandsStore: require('./CommandsStore'),
-    CommandsManager: require('./CommmandsManager')
-}
+module.exports = proto
