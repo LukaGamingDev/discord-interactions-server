@@ -36,6 +36,13 @@ declare class CommandsStore {
      */
     addCommand(command: Function | SlashCommand): CommandsStore;
     /**
+     * Adds multiple commands
+     * @see {@link CommandsStore#addCommand}
+     * @param {Function[]|SlashCommand[]} commands - An array of SlashCommand Constructors or instances to
+     *  add
+     */
+    addCommands(commands: Function[] | SlashCommand[]): CommandsStore;
+    /**
      * Update the remote commands.
      * Will update remote commands, will also clear {@link CommandsStore#queue|the queue}
      * @returns {Promise}

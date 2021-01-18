@@ -73,10 +73,22 @@ class CommandsStore {
     addCommand(command) {
         if (typeof command === 'function') command = new command(this.server, this.guild)
         if (!command instanceof SlashCommand)
-            throw new invalidTypeError('command', 'SlashCommand Constructor or instance')
+            throw invalidTypeError('command', 'SlashCommand Constructor or instance')
 
         this.queue.push(command)
 
+        return this
+    }
+
+    /**
+     * Adds multiple commands
+     * @see {@link CommandsStore#addCommand}
+     * @param {Function[]|SlashCommand[]} commands - An array of SlashCommand Constructors or instances to 
+     *  add
+     */
+    addCommands(commands) {
+        if (!commands instanceof Array) throw invalidTypeError('commands', 'Array')
+        commands.forEach(command => this.addCommand(command))
         return this
     }
 

@@ -36,7 +36,7 @@ class SlashCommand {
 
     /**
      * @param {DiscordInteractionsServer} server
-     * @param {string} [guild]
+     * @param {?string} guild
      * @param {CommandInfo} info 
      */
     constructor(server, guild, info) {
@@ -50,7 +50,7 @@ class SlashCommand {
      * Updates the properties to correspond to the info
      * @private
      * @param {DiscordInteractionsServer} server
-     * @param {string} [guild]
+     * @param {?string} guild
      * @param {CommandInfo} info
      */
     _setProperties(server, guild, info) {
