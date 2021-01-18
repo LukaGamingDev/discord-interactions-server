@@ -1,5 +1,5 @@
 export const Server: {
-    (options: import("./discordInteractions").ClientOptions): import("./discordInteractions").DiscordInteractionsServer;
+    (options: import("./discordInteractions").ClientOptions): any;
     handle(req: any, res: any): Promise<void>;
     checkIsVerified(signature: any, timestamp: any, body: any): boolean;
     handleInteraction(req: any, res: any): Promise<void>;

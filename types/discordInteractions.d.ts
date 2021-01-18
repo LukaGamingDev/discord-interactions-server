@@ -7,7 +7,7 @@ export = proto;
  * @property {string} authorization - Authorization Header
  */
 /**
- * @typedef {Object} DiscordInteractionsServer
+ * @typedef {(Object|any)} DiscordInteractionsServer
  * @property {string} publicKey - The public key of your application
  * @property {string} applicationId - Your application's ID
  * @property {CommandsManager} commands - Slash Commands
@@ -40,27 +40,8 @@ type ClientOptions = {
      */
     authorization: string;
 };
-type DiscordInteractionsServer = {
-    /**
-     * - The public key of your application
-     */
-    publicKey: string;
-    /**
-     * - Your application's ID
-     */
-    applicationId: string;
-    /**
-     * - Slash Commands
-     */
-    commands: CommandsManager;
-    /**
-     * - Axios instance
-     */
-    api: typeof axios;
-};
+type DiscordInteractionsServer = any;
 declare function handle(req: any, res: any): Promise<void>;
 declare function checkIsVerified(signature: any, timestamp: any, body: any): boolean;
 declare function handleInteraction(req: any, res: any): Promise<void>;
 declare function getCommandFromId(body: any): any;
-import CommandsManager = require("./CommmandsManager");
-import axios = require("axios");
