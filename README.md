@@ -1,9 +1,11 @@
 <div align="center">
 <h1>discord-interactions-server</h1>
+<a href="https://www.npmjs.com/package/discord-interactions-server">
 <img alt="npm" src="https://img.shields.io/npm/v/discord-interactions-server">
 <img alt="npm" src="https://img.shields.io/npm/dw/discord-interactions-server">
 <img alt="Libraries.io dependency status for latest release" src="https://img.shields.io/librariesio/release/npm/discord-interactions-server">
 <img alt="NPM" src="https://img.shields.io/npm/l/discord-interactions-server">
+    </a>
 <div><a href="https://lukagamingdev.github.io/discord-interactions-server">View Documentation</a></div>
 <br>
 </div>
