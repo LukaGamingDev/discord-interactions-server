@@ -1,4 +1,5 @@
 const axios = require('axios')
+const nacl = require('tweetnacl')
 
 /**
  * The starting point of Discord Interactions Server
@@ -32,35 +33,62 @@ class Server {
                 'Authorization': `${options.auth.type} ${options.auth.token}`
             }
         })
+
+        /**
+         * The public key
+         * @type {string}
+         */
+        this.publicKey = options.publicKey
+
+        /**
+         * The auth options
+         * @type {AuthOptions}
+         */
+        this.auth = options.auth
+
+        /**
+         * The id of your application
+         * @type {string}
+         */
+        this.applicationId = options.applicationId
     }
 
     /**
-     * Get main middleware
-     * @returns {Function}
+     * Middleware
+     * @param {*} req
+     * @param {*} res
      */
-    handler(options) {
-        return function (req, res, next) {
-            this.runMiddeware(req, res, next)
-        }
-    }
+    handler(req, res) {
+        const signature = req.get('X-Signature-Ed25519');
+        const timestamp = req.get('X-Signature-Timestamp');
+        const rawBody = JSON.stringify(req.body)
 
-    /**
-     * @private
-     */
-    runMiddleware(req, res, next, middleware) {
-        if (middleware.length < 1) return
-        middleware.shift()(req, res, error => {
-            if (error !== undefined && error !== null && error !== 'route') {
-                return next(error)
-            }
-            this.runMiddleware(middleware)
+        const isVerified = this.checkIsVerified({ signature, timestamp, rawBody })
+
+        if (!isVerified) return res.status(401).json({
+            message: 'The request signature you sent was invalid.'
         })
+
+
     }
 
 
     /**
      * @private
      */
+    checkIsVerified({ signature, timestamp, rawBody }) {
+
+        const isVerified = nacl.sign.detached.verify(
+            Buffer.from(timestamp + rawBody),
+            Buffer.from(signature, 'hex'),
+            Buffer.from(this.publicKey, 'hex')
+        )
+
+        if (!isVerified) {
+            return res.status(401).json({ message: 'invalid request signature' })
+        }
+        next()
+    }
 }
 
 module.exports = Server
