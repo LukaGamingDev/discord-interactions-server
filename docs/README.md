@@ -37,4 +37,4 @@ app.listen(3000)
 
 ## Getting Started
 
-Read the [Getting Started](getting-started) guide
+Read the [Getting Started](getting-started/index.md) guide
