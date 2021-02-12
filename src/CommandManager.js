@@ -3,7 +3,7 @@ const SlashCommand = require('./SlashCommand')
 /**
  * Manages global/guild commands
  */
-class CommandsManager {
+class CommandManager {
     /**
      * @param {Server} server - The Server this manager belongs to
      * @param {string} [guild] - The id of the guild this manager belongs to
@@ -33,8 +33,20 @@ class CommandsManager {
      * @returns {Promise<SlashCommand[]>}
      */
     fetch() {
-        Promise.resolve([new SlashCommand()])
+        const endpoint = this.guild
+            ? `/applications/${this.server.applicationId}/guilds/${this.guild}/commands`
+            : `/applications/${this.server.applicationId}/commands`
+
+        return this.server.api.get(endpoint)
+            .then(res => {
+                res.data.forEach(commandData => {
+                    const command = new SlashCommand(commandData)
+                    this.cache.set(commandData.id, command)
+                })
+
+                return res.data
+            })
     }
 }
 
-module.exports = CommandsManager
+module.exports = CommandManager

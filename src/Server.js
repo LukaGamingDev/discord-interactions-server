@@ -55,21 +55,56 @@ class Server {
 
     /**
      * Middleware
-     * @param {*} req
-     * @param {*} res
      */
-    handler(req, res) {
-        const signature = req.get('X-Signature-Ed25519');
-        const timestamp = req.get('X-Signature-Timestamp');
-        const rawBody = JSON.stringify(req.body)
+    get handler() {
+        return this.getHandler()
+    }
 
-        const isVerified = this.checkIsVerified({ signature, timestamp, rawBody })
+    /**
+     * @private
+     */
+    getHandler() {
+        function handler(req, res) {
+            if (req.body === null) {
+                return res.status(400).json({
+                    message: 'Invalid body'
+                })
+            }
 
-        if (!isVerified) return res.status(401).json({
-            message: 'The request signature you sent was invalid.'
-        })
+            const signature = req.get('X-Signature-Ed25519')
+            const timestamp = req.get('X-Signature-Timestamp')
+            const rawBody = JSON.stringify(req.body)
+            const type = req.body.type
 
+            if (!(signature && timestamp && rawBody && type)) {
+                return res.status(400).json({
+                    message: 'Invalid body'
+                })
+            }
 
+            const isVerified = this.checkIsVerified({ signature, timestamp, rawBody })
+
+            if (!isVerified) return res.status(401).json({
+                message: 'The request signature you sent was invalid.'
+            })
+
+            switch (type) {
+                case 1:
+                    res.json({
+                        type: 1
+                    })
+                    break
+                case 2:
+                    console.log('Receive interaction')
+                    break
+                default:
+                    res.status(400).json({
+                        message: 'Invalid type'
+                    })
+            }
+        }
+
+        return handler.bind(this)
     }
 
 
@@ -77,17 +112,13 @@ class Server {
      * @private
      */
     checkIsVerified({ signature, timestamp, rawBody }) {
-
         const isVerified = nacl.sign.detached.verify(
             Buffer.from(timestamp + rawBody),
             Buffer.from(signature, 'hex'),
             Buffer.from(this.publicKey, 'hex')
         )
 
-        if (!isVerified) {
-            return res.status(401).json({ message: 'invalid request signature' })
-        }
-        next()
+        return isVerified
     }
 }
 

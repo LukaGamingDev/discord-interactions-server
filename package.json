@@ -24,6 +24,8 @@
   "homepage": "https://github.com/LukaGamingDev/discord-interactions-server#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "deep-object-diff": "^1.1.0",
+    "jsdoc-json": "^2.0.2",
     "tweetnacl": "^1.0.3"
   }
 }

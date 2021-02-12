@@ -1,0 +1,1617 @@
+{
+  "docs": [
+    {
+      "comment": "/**\n * Manages global/guild commands\n */",
+      "meta": {
+        "range": [
+          89,
+          1344
+        ],
+        "filename": "CommandManager.js",
+        "lineno": 6,
+        "columnno": 0,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000008",
+          "name": "CommandManager",
+          "type": "ClassDeclaration",
+          "paramnames": [
+            "server",
+            "guild"
+          ]
+        }
+      },
+      "name": "CommandManager",
+      "longname": "CommandManager",
+      "kind": "class",
+      "classdesc": "Manages global/guild commands",
+      "scope": "global",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "Server"
+            ]
+          },
+          "description": "The Server this manager belongs to",
+          "name": "server"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "optional": true,
+          "description": "The id of the guild this manager belongs to",
+          "name": "guild"
+        }
+      ],
+      "___id": "T000002R000005",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The Server this manager belongs to\n         * @type {Server}\n         */",
+      "meta": {
+        "range": [
+          409,
+          429
+        ],
+        "filename": "CommandManager.js",
+        "lineno": 16,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000018",
+          "name": "this.server",
+          "type": "Identifier",
+          "value": "server",
+          "paramnames": []
+        }
+      },
+      "description": "The Server this manager belongs to",
+      "type": {
+        "names": [
+          "Server"
+        ]
+      },
+      "name": "server",
+      "longname": "CommandManager#server",
+      "kind": "member",
+      "memberof": "CommandManager",
+      "scope": "instance",
+      "___id": "T000002R000006",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The id of the guild this manager belongs to\n         * @type {?string}\n         */",
+      "meta": {
+        "range": [
+          545,
+          571
+        ],
+        "filename": "CommandManager.js",
+        "lineno": 22,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000024",
+          "name": "this.guild",
+          "type": "LogicalExpression",
+          "value": "",
+          "paramnames": []
+        }
+      },
+      "description": "The id of the guild this manager belongs to",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "nullable": true,
+      "name": "guild",
+      "longname": "CommandManager#guild",
+      "kind": "member",
+      "memberof": "CommandManager",
+      "scope": "instance",
+      "___id": "T000002R000007",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The commands cache\n         * @type {Map<string,SlashCommand>}\n         */",
+      "meta": {
+        "range": [
+          679,
+          701
+        ],
+        "filename": "CommandManager.js",
+        "lineno": 28,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000032",
+          "name": "this.cache",
+          "type": "NewExpression",
+          "value": "",
+          "paramnames": []
+        }
+      },
+      "description": "The commands cache",
+      "type": {
+        "names": [
+          "Map.<string, SlashCommand>"
+        ]
+      },
+      "name": "cache",
+      "longname": "CommandManager#cache",
+      "kind": "member",
+      "memberof": "CommandManager",
+      "scope": "instance",
+      "___id": "T000002R000008",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Fetch all commands and update the cache\n     * @returns {Promise<SlashCommand[]>}\n     */",
+      "meta": {
+        "range": [
+          818,
+          1342
+        ],
+        "filename": "CommandManager.js",
+        "lineno": 35,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000038",
+          "name": "CommandManager#fetch",
+          "type": "MethodDefinition",
+          "paramnames": []
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Fetch all commands and update the cache",
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "Promise.<Array.<SlashCommand>>"
+            ]
+          }
+        }
+      ],
+      "name": "fetch",
+      "longname": "CommandManager#fetch",
+      "kind": "function",
+      "memberof": "CommandManager",
+      "scope": "instance",
+      "params": [],
+      "___id": "T000002R000009",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * @typedef {Object} CommandOptionInfo\n     * @property {CommandOptionType} type - The type of the CommandOption\n     * @property {string} name - The name of the CommandOption\n     * @property {string} description - The description of the CommandOption\n     * @property {boolean} [required=false] - Whether or not the CommandOption is optional or required\n     * @property {CommandOptionChoice[]} [choices] - Choices for the user to pick from\n     * @property {CommandOption[]} [options] - The subcommands of the CommandOption, if the option is\n     *                                         a subcommand or subcommand group\n     */",
+      "meta": {
+        "filename": "CommandOption.js",
+        "lineno": 5,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {}
+      },
+      "kind": "typedef",
+      "name": "CommandOptionInfo",
+      "type": {
+        "names": [
+          "Object"
+        ]
+      },
+      "properties": [
+        {
+          "type": {
+            "names": [
+              "CommandOptionType"
+            ]
+          },
+          "description": "The type of the CommandOption",
+          "name": "type"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The name of the CommandOption",
+          "name": "name"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The description of the CommandOption",
+          "name": "description"
+        },
+        {
+          "type": {
+            "names": [
+              "boolean"
+            ]
+          },
+          "optional": true,
+          "defaultvalue": false,
+          "description": "Whether or not the CommandOption is optional or required",
+          "name": "required"
+        },
+        {
+          "type": {
+            "names": [
+              "Array.<CommandOptionChoice>"
+            ]
+          },
+          "optional": true,
+          "description": "Choices for the user to pick from",
+          "name": "choices"
+        },
+        {
+          "type": {
+            "names": [
+              "Array.<CommandOption>"
+            ]
+          },
+          "optional": true,
+          "description": "The subcommands of the CommandOption, if the option is\n                                        a subcommand or subcommand group",
+          "name": "options"
+        }
+      ],
+      "longname": "CommandOptionInfo",
+      "scope": "global",
+      "___id": "T000002R000014",
+      "___s": true
+    },
+    {
+      "comment": "/**\n * Represents a CommandOption\n */",
+      "meta": {
+        "range": [
+          38,
+          1878
+        ],
+        "filename": "CommandOption.js",
+        "lineno": 4,
+        "columnno": 0,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000124",
+          "name": "CommandOption",
+          "type": "ClassDeclaration",
+          "paramnames": [
+            "command",
+            "data"
+          ]
+        }
+      },
+      "name": "CommandOption",
+      "longname": "CommandOption",
+      "kind": "class",
+      "classdesc": "Represents a CommandOption",
+      "scope": "global",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "SlashCommand"
+            ]
+          },
+          "name": "command"
+        },
+        {
+          "type": {
+            "names": [
+              "CommandOptionInfo"
+            ]
+          },
+          "name": "data"
+        }
+      ],
+      "___id": "T000002R000016",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The command this CommandOption belongs to\n         * @type {SlashCommand}\n         */",
+      "meta": {
+        "range": [
+          958,
+          980
+        ],
+        "filename": "CommandOption.js",
+        "lineno": 26,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000134",
+          "name": "this.command",
+          "type": "Identifier",
+          "value": "command",
+          "paramnames": []
+        }
+      },
+      "description": "The command this CommandOption belongs to",
+      "type": {
+        "names": [
+          "SlashCommand"
+        ]
+      },
+      "name": "command",
+      "longname": "CommandOption#command",
+      "kind": "member",
+      "memberof": "CommandOption",
+      "scope": "instance",
+      "___id": "T000002R000017",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {CommandOptionType}\n         */",
+      "meta": {
+        "range": [
+          1092,
+          1113
+        ],
+        "filename": "CommandOption.js",
+        "lineno": 32,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000140",
+          "name": "this.type",
+          "type": "MemberExpression",
+          "value": "data.type",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "CommandOptionType"
+        ]
+      },
+      "name": "type",
+      "longname": "CommandOption#type",
+      "kind": "member",
+      "memberof": "CommandOption",
+      "scope": "instance",
+      "___id": "T000002R000018",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {string}\n         */",
+      "meta": {
+        "range": [
+          1214,
+          1235
+        ],
+        "filename": "CommandOption.js",
+        "lineno": 38,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000148",
+          "name": "this.name",
+          "type": "MemberExpression",
+          "value": "data.name",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "name": "name",
+      "longname": "CommandOption#name",
+      "kind": "member",
+      "memberof": "CommandOption",
+      "scope": "instance",
+      "___id": "T000002R000019",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {string}\n         */",
+      "meta": {
+        "range": [
+          1336,
+          1371
+        ],
+        "filename": "CommandOption.js",
+        "lineno": 44,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000156",
+          "name": "this.description",
+          "type": "MemberExpression",
+          "value": "data.description",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "name": "description",
+      "longname": "CommandOption#description",
+      "kind": "member",
+      "memberof": "CommandOption",
+      "scope": "instance",
+      "___id": "T000002R000020",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {?boolean}\n         */",
+      "meta": {
+        "range": [
+          1474,
+          1503
+        ],
+        "filename": "CommandOption.js",
+        "lineno": 50,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000164",
+          "name": "this.required",
+          "type": "MemberExpression",
+          "value": "data.required",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "boolean"
+        ]
+      },
+      "nullable": true,
+      "name": "required",
+      "longname": "CommandOption#required",
+      "kind": "member",
+      "memberof": "CommandOption",
+      "scope": "instance",
+      "___id": "T000002R000021",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {CommandOptionChoice[]}\n         */",
+      "meta": {
+        "range": [
+          1619,
+          1733
+        ],
+        "filename": "CommandOption.js",
+        "lineno": 56,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000172",
+          "name": "this.choices",
+          "type": "LogicalExpression",
+          "value": "",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "Array.<CommandOptionChoice>"
+        ]
+      },
+      "name": "choices",
+      "longname": "CommandOption#choices",
+      "kind": "member",
+      "memberof": "CommandOption",
+      "scope": "instance",
+      "___id": "T000002R000022",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {CommandOption[]}\n         */",
+      "meta": {
+        "range": [
+          1843,
+          1870
+        ],
+        "filename": "CommandOption.js",
+        "lineno": 64,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000190",
+          "name": "this.options",
+          "type": "MemberExpression",
+          "value": "data.options",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "Array.<CommandOption>"
+        ]
+      },
+      "name": "options",
+      "longname": "CommandOption#options",
+      "kind": "member",
+      "memberof": "CommandOption",
+      "scope": "instance",
+      "___id": "T000002R000023",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * @typedef {Object} CommandOptionChoiceInfo\n     * @property {string} name - The name of the CommandOptionChoice\n     * @property {string|number} value - The value of the CommandOptionChoice\n     */",
+      "meta": {
+        "filename": "CommandOptionChoice.js",
+        "lineno": 5,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {}
+      },
+      "kind": "typedef",
+      "name": "CommandOptionChoiceInfo",
+      "type": {
+        "names": [
+          "Object"
+        ]
+      },
+      "properties": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The name of the CommandOptionChoice",
+          "name": "name"
+        },
+        {
+          "type": {
+            "names": [
+              "string",
+              "number"
+            ]
+          },
+          "description": "The value of the CommandOptionChoice",
+          "name": "value"
+        }
+      ],
+      "longname": "CommandOptionChoiceInfo",
+      "scope": "global",
+      "___id": "T000002R000025",
+      "___s": true
+    },
+    {
+      "comment": "/**\n * Represents a CommandOptionChoice\n */",
+      "meta": {
+        "range": [
+          44,
+          804
+        ],
+        "filename": "CommandOptionChoice.js",
+        "lineno": 4,
+        "columnno": 0,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000199",
+          "name": "CommandOptionChoice",
+          "type": "ClassDeclaration",
+          "paramnames": [
+            "option",
+            "data"
+          ]
+        }
+      },
+      "name": "CommandOptionChoice",
+      "longname": "CommandOptionChoice",
+      "kind": "class",
+      "classdesc": "Represents a CommandOptionChoice",
+      "scope": "global",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "CommandOption"
+            ]
+          },
+          "name": "option"
+        },
+        {
+          "type": {
+            "names": [
+              "CommandOptionChoiceInfo"
+            ]
+          },
+          "name": "data"
+        }
+      ],
+      "___id": "T000002R000027",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {CommandOption}\n         */",
+      "meta": {
+        "range": [
+          523,
+          543
+        ],
+        "filename": "CommandOptionChoice.js",
+        "lineno": 20,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000209",
+          "name": "this.option",
+          "type": "Identifier",
+          "value": "option",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "CommandOption"
+        ]
+      },
+      "name": "option",
+      "longname": "CommandOptionChoice#option",
+      "kind": "member",
+      "memberof": "CommandOptionChoice",
+      "scope": "instance",
+      "___id": "T000002R000028",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {string}\n         */",
+      "meta": {
+        "range": [
+          644,
+          665
+        ],
+        "filename": "CommandOptionChoice.js",
+        "lineno": 26,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000215",
+          "name": "this.name",
+          "type": "MemberExpression",
+          "value": "data.name",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "name": "name",
+      "longname": "CommandOptionChoice#name",
+      "kind": "member",
+      "memberof": "CommandOptionChoice",
+      "scope": "instance",
+      "___id": "T000002R000029",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The type of the CommandOption\n         * @type {string|number}\n         */",
+      "meta": {
+        "range": [
+          773,
+          796
+        ],
+        "filename": "CommandOptionChoice.js",
+        "lineno": 32,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000223",
+          "name": "this.value",
+          "type": "MemberExpression",
+          "value": "data.value",
+          "paramnames": []
+        }
+      },
+      "description": "The type of the CommandOption",
+      "type": {
+        "names": [
+          "string",
+          "number"
+        ]
+      },
+      "name": "value",
+      "longname": "CommandOptionChoice#value",
+      "kind": "member",
+      "memberof": "CommandOptionChoice",
+      "scope": "instance",
+      "___id": "T000002R000030",
+      "___s": true
+    },
+    {
+      "comment": "/**\n * Manages Command Managers\n */",
+      "meta": {
+        "range": [
+          88,
+          797
+        ],
+        "filename": "MainCommandManager.js",
+        "lineno": 6,
+        "columnno": 0,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000238",
+          "name": "MainCommandManager",
+          "type": "ClassDeclaration",
+          "paramnames": []
+        }
+      },
+      "name": "MainCommandManager",
+      "longname": "MainCommandManager",
+      "kind": "class",
+      "classdesc": "Manages Command Managers",
+      "scope": "global",
+      "___id": "T000002R000034",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * Global command manager\n         * @type {CommandManager}\n         */",
+      "meta": {
+        "range": [
+          235,
+          269
+        ],
+        "filename": "MainCommandManager.js",
+        "lineno": 12,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000246",
+          "name": "this.global",
+          "type": "NewExpression",
+          "value": "",
+          "paramnames": []
+        }
+      },
+      "description": "Global command manager",
+      "type": {
+        "names": [
+          "CommandManager"
+        ]
+      },
+      "name": "global",
+      "longname": "MainCommandManager#global",
+      "kind": "member",
+      "memberof": "MainCommandManager",
+      "scope": "instance",
+      "___id": "T000002R000035",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * Map of command managers that belongs to a guild.\n         * @type {Map<string,CommandManager>}\n         */",
+      "meta": {
+        "range": [
+          409,
+          432
+        ],
+        "filename": "MainCommandManager.js",
+        "lineno": 18,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000253",
+          "name": "this.guilds",
+          "type": "NewExpression",
+          "value": "",
+          "paramnames": []
+        }
+      },
+      "description": "Map of command managers that belongs to a guild.",
+      "type": {
+        "names": [
+          "Map.<string, CommandManager>"
+        ]
+      },
+      "name": "guilds",
+      "longname": "MainCommandManager#guilds",
+      "kind": "member",
+      "memberof": "MainCommandManager",
+      "scope": "instance",
+      "___id": "T000002R000036",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Gets a guild command manager, if the guild does not exist in {@link MainCommandManager~guilds}\n     * creates it.\n     * @param {string} id\n     * @returns {CommandManager}\n     */",
+      "meta": {
+        "range": [
+          640,
+          795
+        ],
+        "filename": "MainCommandManager.js",
+        "lineno": 27,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000259",
+          "name": "MainCommandManager#guild",
+          "type": "MethodDefinition",
+          "paramnames": [
+            "id"
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Gets a guild command manager, if the guild does not exist in {@link MainCommandManager~guilds}\ncreates it.",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "name": "id"
+        }
+      ],
+      "returns": [
+        {
+          "type": {
+            "names": [
+              "CommandManager"
+            ]
+          }
+        }
+      ],
+      "name": "guild",
+      "longname": "MainCommandManager#guild",
+      "kind": "function",
+      "memberof": "MainCommandManager",
+      "scope": "instance",
+      "___id": "T000002R000037",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * @typedef {Object} AuthOptions\n     * @property {string} token - The authorization token\n     * @property {string} [type=Bot] - The type of the authorization token\n     */",
+      "meta": {
+        "filename": "Server.js",
+        "lineno": 8,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {}
+      },
+      "kind": "typedef",
+      "name": "AuthOptions",
+      "type": {
+        "names": [
+          "Object"
+        ]
+      },
+      "properties": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The authorization token",
+          "name": "token"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "optional": true,
+          "defaultvalue": "Bot",
+          "description": "The type of the authorization token",
+          "name": "type"
+        }
+      ],
+      "longname": "AuthOptions",
+      "scope": "global",
+      "___id": "T000002R000042",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * @typedef {Object} ServerOptions\n     * @property {AuthOptions} auth\n     * @property {string} publicKey - The public key provided on your application page\n     * @property {string} applicationId - The id of your application\n     * @property {Object} [apiBaseURL=https://discord.com/api/v8] - Discord API base URL\n     */",
+      "meta": {
+        "filename": "Server.js",
+        "lineno": 14,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {}
+      },
+      "kind": "typedef",
+      "name": "ServerOptions",
+      "type": {
+        "names": [
+          "Object"
+        ]
+      },
+      "properties": [
+        {
+          "type": {
+            "names": [
+              "AuthOptions"
+            ]
+          },
+          "name": "auth"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The public key provided on your application page",
+          "name": "publicKey"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The id of your application",
+          "name": "applicationId"
+        },
+        {
+          "type": {
+            "names": [
+              "Object"
+            ]
+          },
+          "optional": true,
+          "defaultvalue": "https://discord.com/api/v8",
+          "description": "Discord API base URL",
+          "name": "apiBaseURL"
+        }
+      ],
+      "longname": "ServerOptions",
+      "scope": "global",
+      "___id": "T000002R000043",
+      "___s": true
+    },
+    {
+      "comment": "/**\n * The starting point of Discord Interactions Server\n */",
+      "meta": {
+        "range": [
+          127,
+          3190
+        ],
+        "filename": "Server.js",
+        "lineno": 7,
+        "columnno": 0,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000310",
+          "name": "Server",
+          "type": "ClassDeclaration",
+          "paramnames": [
+            "options"
+          ]
+        }
+      },
+      "name": "Server",
+      "longname": "Server",
+      "kind": "class",
+      "classdesc": "The starting point of Discord Interactions Server",
+      "scope": "global",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "ServerOptions"
+            ]
+          },
+          "name": "options"
+        }
+      ],
+      "___id": "T000002R000045",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * @private\n         * @type {AxiosInstance}\n         */",
+      "meta": {
+        "range": [
+          833,
+          1025
+        ],
+        "filename": "Server.js",
+        "lineno": 30,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000319",
+          "name": "this.api",
+          "type": "CallExpression",
+          "value": "",
+          "paramnames": []
+        }
+      },
+      "access": "private",
+      "type": {
+        "names": [
+          "AxiosInstance"
+        ]
+      },
+      "name": "api",
+      "longname": "Server#api",
+      "kind": "member",
+      "memberof": "Server",
+      "scope": "instance",
+      "___id": "T000002R000046",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The public key\n         * @type {string}\n         */",
+      "meta": {
+        "range": [
+          1111,
+          1145
+        ],
+        "filename": "Server.js",
+        "lineno": 41,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000350",
+          "name": "this.publicKey",
+          "type": "MemberExpression",
+          "value": "options.publicKey",
+          "paramnames": []
+        }
+      },
+      "description": "The public key",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "name": "publicKey",
+      "longname": "Server#publicKey",
+      "kind": "member",
+      "memberof": "Server",
+      "scope": "instance",
+      "___id": "T000002R000050",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The auth options\n         * @type {AuthOptions}\n         */",
+      "meta": {
+        "range": [
+          1238,
+          1262
+        ],
+        "filename": "Server.js",
+        "lineno": 47,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000358",
+          "name": "this.auth",
+          "type": "MemberExpression",
+          "value": "options.auth",
+          "paramnames": []
+        }
+      },
+      "description": "The auth options",
+      "type": {
+        "names": [
+          "AuthOptions"
+        ]
+      },
+      "name": "auth",
+      "longname": "Server#auth",
+      "kind": "member",
+      "memberof": "Server",
+      "scope": "instance",
+      "___id": "T000002R000051",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The id of your application\n         * @type {string}\n         */",
+      "meta": {
+        "range": [
+          1360,
+          1402
+        ],
+        "filename": "Server.js",
+        "lineno": 53,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000366",
+          "name": "this.applicationId",
+          "type": "MemberExpression",
+          "value": "options.applicationId",
+          "paramnames": []
+        }
+      },
+      "description": "The id of your application",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "name": "applicationId",
+      "longname": "Server#applicationId",
+      "kind": "member",
+      "memberof": "Server",
+      "scope": "instance",
+      "___id": "T000002R000052",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * Middleware\n     */",
+      "meta": {
+        "range": [
+          1448,
+          1502
+        ],
+        "filename": "Server.js",
+        "lineno": 59,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000373",
+          "name": "Server#handler",
+          "type": "MethodDefinition",
+          "paramnames": []
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "description": "Middleware",
+      "name": "handler",
+      "longname": "Server#handler",
+      "kind": "member",
+      "memberof": "Server",
+      "scope": "instance",
+      "params": [],
+      "___id": "T000002R000053",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * @private\n     */",
+      "meta": {
+        "range": [
+          1540,
+          2864
+        ],
+        "filename": "Server.js",
+        "lineno": 66,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000382",
+          "name": "Server#getHandler",
+          "type": "MethodDefinition",
+          "paramnames": []
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "access": "private",
+      "name": "getHandler",
+      "longname": "Server#getHandler",
+      "kind": "function",
+      "memberof": "Server",
+      "scope": "instance",
+      "params": [],
+      "___id": "T000002R000054",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * @private\n     */",
+      "meta": {
+        "range": [
+          2903,
+          3188
+        ],
+        "filename": "Server.js",
+        "lineno": 114,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000536",
+          "name": "Server#checkIsVerified",
+          "type": "MethodDefinition",
+          "paramnames": [
+            ""
+          ]
+        },
+        "vars": {
+          "": null
+        }
+      },
+      "access": "private",
+      "name": "checkIsVerified",
+      "longname": "Server#checkIsVerified",
+      "kind": "function",
+      "memberof": "Server",
+      "scope": "instance",
+      "params": [],
+      "___id": "T000002R000069",
+      "___s": true
+    },
+    {
+      "comment": "/**\n     * @typedef {Object} CommandInfo\n     * @property {string} id - The id of the command\n     * @property {string} application_id - The id of the parent application\n     * @property {string} name - The name of the command\n     * @property {string} description - The description of the command\n     * @property {CommandOptionInfo[]} [options] - The parameters of the command\n     */",
+      "meta": {
+        "filename": "SlashCommand.js",
+        "lineno": 5,
+        "columnno": 4,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {}
+      },
+      "kind": "typedef",
+      "name": "CommandInfo",
+      "type": {
+        "names": [
+          "Object"
+        ]
+      },
+      "properties": [
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The id of the command",
+          "name": "id"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The id of the parent application",
+          "name": "application_id"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The name of the command",
+          "name": "name"
+        },
+        {
+          "type": {
+            "names": [
+              "string"
+            ]
+          },
+          "description": "The description of the command",
+          "name": "description"
+        },
+        {
+          "type": {
+            "names": [
+              "Array.<CommandOptionInfo>"
+            ]
+          },
+          "optional": true,
+          "description": "The parameters of the command",
+          "name": "options"
+        }
+      ],
+      "longname": "CommandInfo",
+      "scope": "global",
+      "___id": "T000002R000076",
+      "___s": true
+    },
+    {
+      "comment": "/**\n * Represents a SlashCommand\n */",
+      "meta": {
+        "range": [
+          37,
+          1493
+        ],
+        "filename": "SlashCommand.js",
+        "lineno": 4,
+        "columnno": 0,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000589",
+          "name": "SlashCommand",
+          "type": "ClassDeclaration",
+          "paramnames": [
+            "manager",
+            "data"
+          ]
+        }
+      },
+      "name": "SlashCommand",
+      "longname": "SlashCommand",
+      "kind": "class",
+      "classdesc": "Represents a SlashCommand",
+      "scope": "global",
+      "params": [
+        {
+          "type": {
+            "names": [
+              "CommandManager"
+            ]
+          },
+          "description": "The manager this command belongs to",
+          "name": "manager"
+        },
+        {
+          "type": {
+            "names": [
+              "CommandInfo"
+            ]
+          },
+          "description": "The data of the SlashCommand",
+          "name": "data"
+        }
+      ],
+      "___id": "T000002R000078",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * @private\n         * @type {CommandInfo}\n         */",
+      "meta": {
+        "range": [
+          723,
+          741
+        ],
+        "filename": "SlashCommand.js",
+        "lineno": 23,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000599",
+          "name": "this.remote",
+          "type": "Identifier",
+          "value": "data",
+          "paramnames": []
+        }
+      },
+      "access": "private",
+      "type": {
+        "names": [
+          "CommandInfo"
+        ]
+      },
+      "name": "remote",
+      "longname": "SlashCommand#remote",
+      "kind": "member",
+      "memberof": "SlashCommand",
+      "scope": "instance",
+      "___id": "T000002R000079",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The manager this command belongs to\n         * @type {CommandManager}\n         */",
+      "meta": {
+        "range": [
+          856,
+          878
+        ],
+        "filename": "SlashCommand.js",
+        "lineno": 29,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000605",
+          "name": "this.manager",
+          "type": "Identifier",
+          "value": "manager",
+          "paramnames": []
+        }
+      },
+      "description": "The manager this command belongs to",
+      "type": {
+        "names": [
+          "CommandManager"
+        ]
+      },
+      "name": "manager",
+      "longname": "SlashCommand#manager",
+      "kind": "member",
+      "memberof": "SlashCommand",
+      "scope": "instance",
+      "___id": "T000002R000080",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The id of the command\n         * @type {string}\n         */",
+      "meta": {
+        "range": [
+          971,
+          988
+        ],
+        "filename": "SlashCommand.js",
+        "lineno": 35,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000611",
+          "name": "this.id",
+          "type": "MemberExpression",
+          "value": "data.id",
+          "paramnames": []
+        }
+      },
+      "description": "The id of the command",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "name": "id",
+      "longname": "SlashCommand#id",
+      "kind": "member",
+      "memberof": "SlashCommand",
+      "scope": "instance",
+      "___id": "T000002R000081",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The name of the command\n         * @type {string}\n         */",
+      "meta": {
+        "range": [
+          1083,
+          1104
+        ],
+        "filename": "SlashCommand.js",
+        "lineno": 41,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000619",
+          "name": "this.name",
+          "type": "MemberExpression",
+          "value": "data.name",
+          "paramnames": []
+        }
+      },
+      "description": "The name of the command",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "name": "name",
+      "longname": "SlashCommand#name",
+      "kind": "member",
+      "memberof": "SlashCommand",
+      "scope": "instance",
+      "___id": "T000002R000082",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The description of the command\n         * @type {string}\n         */",
+      "meta": {
+        "range": [
+          1206,
+          1241
+        ],
+        "filename": "SlashCommand.js",
+        "lineno": 47,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000627",
+          "name": "this.description",
+          "type": "MemberExpression",
+          "value": "data.description",
+          "paramnames": []
+        }
+      },
+      "description": "The description of the command",
+      "type": {
+        "names": [
+          "string"
+        ]
+      },
+      "name": "description",
+      "longname": "SlashCommand#description",
+      "kind": "member",
+      "memberof": "SlashCommand",
+      "scope": "instance",
+      "___id": "T000002R000083",
+      "___s": true
+    },
+    {
+      "comment": "/**\n         * The options of the command\n         * @type {CommandOption[]}\n         */",
+      "meta": {
+        "range": [
+          1348,
+          1462
+        ],
+        "filename": "SlashCommand.js",
+        "lineno": 53,
+        "columnno": 8,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000635",
+          "name": "this.options",
+          "type": "LogicalExpression",
+          "value": "",
+          "paramnames": []
+        }
+      },
+      "description": "The options of the command",
+      "type": {
+        "names": [
+          "Array.<CommandOption>"
+        ]
+      },
+      "name": "options",
+      "longname": "SlashCommand#options",
+      "kind": "member",
+      "memberof": "SlashCommand",
+      "scope": "instance",
+      "___id": "T000002R000084",
+      "___s": true
+    },
+    {
+      "comment": "/**\n * A Command Option Type\n * @typedef {number}\n */",
+      "meta": {
+        "range": [
+          60,
+          217
+        ],
+        "filename": "index.js",
+        "lineno": 5,
+        "columnno": 6,
+        "path": "/home/luka/projects/discord-interactions-server/src",
+        "code": {
+          "id": "astnode100000660",
+          "name": "CommandOptionType",
+          "type": "ObjectExpression",
+          "value": "{\"SUB_COMMAND\":1,\"SUB_COMMAND_GROUP\":2,\"STRING\":3,\"INTEGER\":4,\"BOOLEAN\":5,\"USER\":6,\"CHANNEL\":7,\"ROLE\":8}"
+        }
+      },
+      "description": "A Command Option Type",
+      "kind": "typedef",
+      "type": {
+        "names": [
+          "number"
+        ]
+      },
+      "name": "CommandOptionType",
+      "longname": "CommandOptionType",
+      "scope": "global",
+      "params": [],
+      "___id": "T000002R000086",
+      "___s": true
+    },
+    {
+      "kind": "package",
+      "longname": "package:undefined",
+      "files": [
+        "/home/luka/projects/discord-interactions-server/src/CommandManager.js",
+        "/home/luka/projects/discord-interactions-server/src/CommandOption.js",
+        "/home/luka/projects/discord-interactions-server/src/CommandOptionChoice.js",
+        "/home/luka/projects/discord-interactions-server/src/MainCommandManager.js",
+        "/home/luka/projects/discord-interactions-server/src/Server.js",
+        "/home/luka/projects/discord-interactions-server/src/SlashCommand.js",
+        "/home/luka/projects/discord-interactions-server/src/index.js"
+      ],
+      "___id": "T000002R000098",
+      "___s": true
+    }
+  ]
+}
